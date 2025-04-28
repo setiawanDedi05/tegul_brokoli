@@ -1,4 +1,7 @@
 {
   "name": "TegulBrokoli",
-  "displayName": "TegulBrokoli"
+  "displayName": "TegulBrokoli",
+  "plugins": [
+    ["react-native-bootsplash", { "assetsDir": "assets/bootsplash" }]
+   ]
 }
