@@ -23,8 +23,10 @@ import {Routes} from '../../navigation/routes';
 
 const createNotaValidationSchema = yup.object().shape({
   type: yup.string(),
-  name: yup.string().required('nama wajib diisi mang'),
-  alamat: yup.string().required('Alamat wajib diisi mang'),
+  name: yup.string(),
+  // .required('nama wajib diisi mang'),
+  alamat: yup.string(),
+  // .required('Alamat wajib diisi mang'),
   items: yup.array(),
 });
 const NotaScreen = ({navigation}: {navigation: NavigationProp<any>}) => {

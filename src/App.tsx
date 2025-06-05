@@ -5,7 +5,7 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import LoginScreen from './screens/login';
 import RNBootSplash from 'react-native-bootsplash';
 import {NavigationContainer} from '@react-navigation/native';
@@ -15,9 +15,18 @@ import {Routes} from './navigation/routes';
 import {Colors} from './constants/colors';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import ReviewNota from './screens/review-nota';
+import {StatusBar} from 'react-native';
+import {requestPermissions} from './utils/permission';
 
 const Stack = createNativeStackNavigator();
 function App(): React.JSX.Element {
+  useEffect(() => {
+    console.log('Komponen dimuat, meminta izin...');
+    // requestPermissions.postNotification().then(result => console.log({result}));
+    // requestPermissions.writeData();
+    requestPermissions.camera();
+  }, []);
+
   useEffect(() => {
     const init = async () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
@@ -25,9 +34,11 @@ function App(): React.JSX.Element {
     };
     init();
   }, []);
+
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{flex: 1, padding: 0}}>
+        <StatusBar backgroundColor={Colors.secondary} />
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName={Routes.Login}

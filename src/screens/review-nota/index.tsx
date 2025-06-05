@@ -1,10 +1,85 @@
-import React from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {
+  Alert,
+  Image,
+  PermissionsAndroid,
+  Platform,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../constants/colors';
 import {Images} from '../../constants/images';
+import TableData, {ColumnType} from '../../components/CustomTable';
+import SummaryItem from './components/SummaryItem';
+import {formatRupiah} from '../../utils/FormatRupiah';
+
+export interface Item {
+  productName: string;
+  quantity: number;
+  price: number;
+  total: number;
+}
 
 const ReviewNota = () => {
+  const viewShotRef = useRef(null);
+  const [screenShotUri, setScreenShotUri] = useState<string | null>(null);
+
+
+  const columns: ColumnType<Item>[] = [
+    {
+      title: 'No',
+      numerization: true,
+      width: 20,
+    },
+    {
+      title: 'Produk',
+      key: 'productName',
+      width: 70,
+    },
+    {
+      title: 'Jml',
+      key: 'quantity',
+      width: 40,
+    },
+    {
+      title: 'Harga',
+      key: 'price',
+      render: (_, record) => {
+        return <Text>{formatRupiah(record.price)}</Text>;
+      },
+    },
+    {
+      title: 'Total',
+      key: 'total',
+      render: (_, record) => {
+        return <Text>{formatRupiah(record.total)}</Text>;
+      },
+    },
+  ];
+
+  const data: Item[] = [
+    {
+      productName: 'Brokoli',
+      quantity: 20,
+      price: 10000,
+      total: 200000,
+    },
+    {
+      productName: 'Wortel',
+      quantity: 20,
+      price: 10000,
+      total: 200000,
+    },
+    {
+      productName: 'Paprika',
+      quantity: 20,
+      price: 10000,
+      total: 200000,
+    },
+  ];
   return (
     <LinearGradient
       start={{x: 0, y: 0.25}}
@@ -34,72 +109,11 @@ const ReviewNota = () => {
           </View>
           <Text>Senin, 28 April 2025</Text>
         </View>
-        <View
-          style={{
-            width: 300,
-            height: 300,
-            backgroundColor: Colors.background,
-            borderRadius: 8,
-            padding: 12,
-            gap: 10,
-          }}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left', fontWeight: 700}}>Produk</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left', fontWeight: 700}}>Qty</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left', fontWeight: 700}}>Harga</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left', fontWeight: 700}}>Total</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>Brokoly</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>12</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>10000</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>120000</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>Wortel</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>12</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>10000</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>120000</Text>
-            </View>
-          </View>
-          <View style={{flexDirection: 'row', justifyContent: 'space-evenly'}}>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>Daun Bawang</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>12</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>10000</Text>
-            </View>
-            <View style={{flex: 1}}>
-              <Text style={{textAlign: 'left'}}>120000</Text>
-            </View>
-          </View>
-        </View>
+        <TableData
+          columns={columns}
+          data={data}
+          footer={<SummaryItem items={data} unitLabel="Kg" />}
+        />
       </ScrollView>
     </LinearGradient>
   );
