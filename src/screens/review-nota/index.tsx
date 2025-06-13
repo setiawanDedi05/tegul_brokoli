@@ -1,9 +1,8 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {
   Alert,
+  Button,
   Image,
-  PermissionsAndroid,
-  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -15,6 +14,10 @@ import {Images} from '../../constants/images';
 import TableData, {ColumnType} from '../../components/CustomTable';
 import SummaryItem from './components/SummaryItem';
 import {formatRupiah} from '../../utils/FormatRupiah';
+import ViewShot from 'react-native-view-shot';
+import {takeScreenshot} from '../../utils/screenshoot';
+import {checkMultiple, PERMISSIONS} from 'react-native-permissions';
+import WatermarkContainer from '../../components/WatermarkContainer';
 
 export interface Item {
   productName: string;
@@ -25,8 +28,14 @@ export interface Item {
 
 const ReviewNota = () => {
   const viewShotRef = useRef(null);
-  const [screenShotUri, setScreenShotUri] = useState<string | null>(null);
 
+  checkMultiple([
+    PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE,
+    PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE,
+  ]).then(statuses => {
+    console.log('read', statuses[PERMISSIONS.ANDROID.READ_EXTERNAL_STORAGE]);
+    console.log('write', statuses[PERMISSIONS.ANDROID.WRITE_EXTERNAL_STORAGE]);
+  });
 
   const columns: ColumnType<Item>[] = [
     {
@@ -94,25 +103,46 @@ const ReviewNota = () => {
           <Text style={{fontWeight: 700, fontSize: 24}}>Nota Pembelian</Text>
           <Image source={Images.logo} style={styles.image} />
         </View>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'flex-end',
-            flexDirection: 'row',
-            marginBottom: 10,
-          }}>
-          <View style={{width: '50%'}}>
-            <Text style={{fontWeight: 700}}>Dedi Setiawan</Text>
-            <Text style={{fontSize: 10}}>
-              Kp. Pacet Beunying, RT/RW. 01/07. Pacet, Beunying, Cianjur
-            </Text>
-          </View>
-          <Text>Senin, 28 April 2025</Text>
-        </View>
-        <TableData
-          columns={columns}
-          data={data}
-          footer={<SummaryItem items={data} unitLabel="Kg" />}
+        <ViewShot ref={viewShotRef} options={{format: 'png', quality: 0.9}}>
+            <TableData
+              header={
+                <>
+                <WatermarkContainer />
+                <View
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'flex-end',
+                    flexDirection: 'row',
+                    marginBottom: 10,
+                  }}>
+                  <View style={{width: '50%'}}>
+                    <Text style={{fontWeight: 700}}>Dedi Setiawan</Text>
+                    <Text style={{fontSize: 10}}>
+                      Kp. Pacet Beunying, RT/RW. 01/07. Pacet, Beunying, Cianjur
+                    </Text>
+                  </View>
+                  <Text>Senin, 28 April 2025</Text>
+                </View>
+                    </>
+              }
+              columns={columns}
+              data={data}
+              footer={<SummaryItem items={data} unitLabel="Kg" />}
+            />
+        </ViewShot>
+        <Button
+          title="Ambil Screenshot"
+          onPress={() =>
+            takeScreenshot(
+              viewShotRef,
+              () => {
+                Alert.alert('Berhasil', 'Screenshot berhasil diambil');
+              },
+              () => {
+                Alert.alert('Gagal', 'Screenshot gagal diambil');
+              },
+            )
+          }
         />
       </ScrollView>
     </LinearGradient>
