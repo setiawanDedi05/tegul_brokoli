@@ -3,5 +3,7 @@ export const Routes = {
     Beranda: 'Beranda',
     Login: 'Login',
     Nota: 'Nota',
-    ReviewNota: 'ReviewNota'
+    ReviewNota: 'ReviewNota',
+    Histories: 'Histories',
+    products: 'Products'
 }
