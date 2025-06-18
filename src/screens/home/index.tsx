@@ -4,7 +4,6 @@ import {
   createBottomTabNavigator,
 } from '@react-navigation/bottom-tabs';
 import {StyleSheet, View} from 'react-native';
-import {Colors} from '../../constants/colors';
 import AnimatedTabBar from './components/AnimatedTabBar';
 import BerandaScreen from '../beranda';
 import { Routes } from '../../navigation/routes';

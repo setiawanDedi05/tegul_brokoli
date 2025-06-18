@@ -5,8 +5,9 @@ import LinearGradient from 'react-native-linear-gradient';
 import Greetings from './components/Greetings';
 import CardItem from './components/CardItem';
 import Section from './components/Section';
+import { NavigationProp } from '@react-navigation/native';
 
-const BerandaScreen = () => {
+const BerandaScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
   const PurchaseReportContent = () => {
     return (
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -124,7 +125,7 @@ const BerandaScreen = () => {
       angleCenter={{x: 0.5, y: 0.5}}
       useAngle={true}
       style={styles.root}>
-      <Greetings />
+      <Greetings navigation={navigation} />
       <ScrollView style={{flex: 1}}>
         <Section title="Pembelian Hari ini" content={<PurchaseReportContent />} />
         <Section title="Penjualan Hari ini" content={<SalesReportContent />} />
