@@ -14,9 +14,9 @@ import HomeScreen from './screens/home';
 import {Routes} from './navigation/routes';
 import {Colors} from './constants/colors';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
-import ReviewNota from './screens/review-nota';
 import {StatusBar} from 'react-native';
 import {requestPermissions} from './utils/permission';
+import HistoryScreen from './screens/history';
 
 const Stack = createNativeStackNavigator();
 function App(): React.JSX.Element {
@@ -56,8 +56,8 @@ function App(): React.JSX.Element {
               options={{headerShown: false}}
             />
             <Stack.Screen
-              name={Routes.ReviewNota}
-              component={ReviewNota}
+              name={Routes.Histories}
+              component={HistoryScreen}
               options={{headerShown: false}}
             />
           </Stack.Navigator>
