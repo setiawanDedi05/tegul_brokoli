@@ -1,11 +1,11 @@
 import React, {useRef} from 'react';
 import {
   Alert,
-  Button,
   Image,
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
@@ -18,6 +18,8 @@ import ViewShot from 'react-native-view-shot';
 import {takeScreenshot} from '../../utils/screenshoot';
 import {checkMultiple, PERMISSIONS} from 'react-native-permissions';
 import WatermarkContainer from '../../components/WatermarkContainer';
+import Icon from 'react-native-vector-icons/Ionicons';
+import Share from 'react-native-share';
 
 export interface Item {
   productName: string;
@@ -104,9 +106,9 @@ const ReviewNota = () => {
           <Image source={Images.logo} style={styles.image} />
         </View>
         <ViewShot ref={viewShotRef} options={{format: 'png', quality: 0.9}}>
-            <TableData
-              header={
-                <>
+          <TableData
+            header={
+              <>
                 <WatermarkContainer />
                 <View
                   style={{
@@ -123,27 +125,44 @@ const ReviewNota = () => {
                   </View>
                   <Text>Senin, 28 April 2025</Text>
                 </View>
-                    </>
-              }
-              columns={columns}
-              data={data}
-              footer={<SummaryItem items={data} unitLabel="Kg" />}
-            />
+              </>
+            }
+            columns={columns}
+            data={data}
+            footer={<SummaryItem items={data} unitLabel="Kg" />}
+          />
         </ViewShot>
-        <Button
-          title="Ambil Screenshot"
-          onPress={() =>
-            takeScreenshot(
-              viewShotRef,
-              () => {
-                Alert.alert('Berhasil', 'Screenshot berhasil diambil');
-              },
-              () => {
-                Alert.alert('Gagal', 'Screenshot gagal diambil');
-              },
-            )
-          }
-        />
+        <View style={{ display: 'flex', justifyContent: 'flex-start', padding: 16}}>
+          <TouchableOpacity
+            style={{
+              backgroundColor: Colors.background,
+              borderRadius: '100%',
+              width: 50,
+              height: 50,
+              display:'flex',
+              justifyContent: 'center'
+            }}
+            onPress={() =>
+              takeScreenshot(
+                viewShotRef,
+                 (uri) => {
+                  Share.open({url:uri});
+                },
+                () => {
+                  Alert.alert('Gagal', 'Screenshot gagal diambil');
+                },
+              )
+            }>
+            <Icon
+              name="share"
+              size={30}
+              color={Colors.primary}
+              style={{
+                alignSelf: 'center',
+              }}
+            />
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </LinearGradient>
   );

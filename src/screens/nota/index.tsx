@@ -69,7 +69,6 @@ const NotaScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
           validationSchema={createNotaValidationSchema}
           initialValues={{type: 'pembelian', name: '', alamat: '', items: []}}
           onSubmit={() => {
-            console.log("kesini")
             navigation.navigate(Routes.ReviewNota);
           }}>
           {({

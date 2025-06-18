@@ -9,8 +9,30 @@ import AnimatedTabBar from './components/AnimatedTabBar';
 import BerandaScreen from '../beranda';
 import { Routes } from '../../navigation/routes';
 import NotaScreen from '../nota';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import ReviewNota from '../review-nota';
+import HistoryScreen from '../history';
+import SettingsScreen from '../setting';
 
 const Tab = createBottomTabNavigator();
+const CreateNotaStack = createNativeStackNavigator();
+const CreateProductStack = createNativeStackNavigator();
+const CreateNotaFlow = () => {
+  return (
+    <CreateNotaStack.Navigator initialRouteName={Routes.Nota} screenOptions={{headerShown: false}}>
+      <CreateNotaStack.Screen name={Routes.Nota} component={NotaScreen} />
+      <CreateNotaStack.Screen name={Routes.ReviewNota} component={ReviewNota} />
+    </CreateNotaStack.Navigator>
+  );
+}
+
+const CreateProductFlow = () => {
+  return (
+    <CreateProductStack.Navigator initialRouteName={Routes.products} screenOptions={{headerShown: false}}>
+      <CreateProductStack.Screen name={Routes.products} component={HistoryScreen} />
+    </CreateProductStack.Navigator>
+  )
+}
 const HomeScreen = () => {
   return (
     <Tab.Navigator initialRouteName={Routes.Beranda} tabBar={props => <AnimatedTabBar {...props} />}>
@@ -44,7 +66,7 @@ const HomeScreen = () => {
             />
           ),
         }}
-        component={NotaScreen}
+        component={CreateNotaFlow}
       />
       <Tab.Screen
         name="Chat"
@@ -55,12 +77,12 @@ const HomeScreen = () => {
             <Lottie
               ref={ref}
               loop={false}
-              source={require('../../assets/lottie/chat.icon.json')}
-              style={styles.icon}
+              source={require('../../assets/lottie/product.icon.json')}
+              style={styles.iconProduct}
             />
           ),
         }}
-        component={PlaceholderScreen}
+        component={CreateProductFlow}
       />
       <Tab.Screen
         name="Settings"
@@ -76,20 +98,24 @@ const HomeScreen = () => {
             />
           ),
         }}
-        component={PlaceholderScreen}
+        component={SettingsScreen}
       />
     </Tab.Navigator>
   );
-};
-
-const PlaceholderScreen = () => {
-  return <View style={{flex: 1, backgroundColor: Colors.primary}} />;
 };
 
 const styles = StyleSheet.create({
   icon: {
     height: 36,
     width: 36,
+  },
+  iconProduct: {
+    height: 30,
+    width: 30,
+  },
+  iconHistory: {
+    height: 56,
+    width: 56,
   },
 });
 
