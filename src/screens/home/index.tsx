@@ -10,8 +10,8 @@ import { Routes } from '../../navigation/routes';
 import NotaScreen from '../nota';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import ReviewNota from '../review-nota';
-import HistoryScreen from '../history';
 import SettingsScreen from '../setting';
+import ProductScreen from '../product';
 
 const Tab = createBottomTabNavigator();
 const CreateNotaStack = createNativeStackNavigator();
@@ -28,7 +28,7 @@ const CreateNotaFlow = () => {
 const CreateProductFlow = () => {
   return (
     <CreateProductStack.Navigator initialRouteName={Routes.products} screenOptions={{headerShown: false}}>
-      <CreateProductStack.Screen name={Routes.products} component={HistoryScreen} />
+      <CreateProductStack.Screen name={Routes.products} component={ProductScreen} />
     </CreateProductStack.Navigator>
   )
 }

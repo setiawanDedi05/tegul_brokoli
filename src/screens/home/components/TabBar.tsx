@@ -2,6 +2,7 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import React, { useEffect, useRef } from 'react'
 import { LayoutChangeEvent, Pressable, StyleSheet } from 'react-native';
 import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated';
+import { Colors } from '../../../constants/colors';
 
 
 type TabBarProps = {
@@ -68,7 +69,7 @@ type TabBarProps = {
     componentCircle: {
       flex: 1,
       borderRadius: 30,
-      backgroundColor: 'white',
+      backgroundColor: Colors.background,
     },
     iconContainer: {
       position: 'absolute',
