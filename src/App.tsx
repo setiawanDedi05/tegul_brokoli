@@ -16,7 +16,6 @@ import {Colors} from './constants/colors';
 import {SafeAreaProvider, SafeAreaView} from 'react-native-safe-area-context';
 import {StatusBar} from 'react-native';
 import {requestPermissions} from './utils/permission';
-import HistoryScreen from './screens/history';
 
 const Stack = createNativeStackNavigator();
 function App(): React.JSX.Element {
@@ -38,7 +37,7 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
       <SafeAreaView style={{flex: 1, padding: 0}}>
-        <StatusBar backgroundColor={Colors.secondary} />
+        <StatusBar barStyle='dark-content' backgroundColor={Colors.secondary} showHideTransition={'fade'} />
         <NavigationContainer>
           <Stack.Navigator
             initialRouteName={Routes.Login}
@@ -53,11 +52,6 @@ function App(): React.JSX.Element {
             <Stack.Screen
               name={Routes.Home}
               component={HomeScreen}
-              options={{headerShown: false}}
-            />
-            <Stack.Screen
-              name={Routes.Histories}
-              component={HistoryScreen}
               options={{headerShown: false}}
             />
           </Stack.Navigator>
