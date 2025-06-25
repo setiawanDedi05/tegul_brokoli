@@ -1,40 +1,59 @@
 import React from 'react';
 import Lottie from 'lottie-react-native';
-import {
-  createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StyleSheet, View} from 'react-native';
 import AnimatedTabBar from './components/AnimatedTabBar';
 import BerandaScreen from '../beranda';
-import { Routes } from '../../navigation/routes';
+import {Routes} from '../../navigation/routes';
 import NotaScreen from '../nota';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ReviewNota from '../review-nota';
 import SettingsScreen from '../setting';
 import ProductScreen from '../product';
+import HistoryScreen from '../history';
 
 const Tab = createBottomTabNavigator();
+const CreateHomeStack = createNativeStackNavigator();
 const CreateNotaStack = createNativeStackNavigator();
 const CreateProductStack = createNativeStackNavigator();
+const CreateHomeFlow = () => {
+  return (
+    <CreateHomeStack.Navigator
+      initialRouteName={Routes.Beranda}
+      screenOptions={{headerShown: false}}>
+      <CreateHomeStack.Screen name={Routes.Beranda} component={BerandaScreen} />
+      <CreateHomeStack.Screen name={Routes.Histories} component={HistoryScreen} />
+    </CreateHomeStack.Navigator>
+  );
+};
 const CreateNotaFlow = () => {
   return (
-    <CreateNotaStack.Navigator initialRouteName={Routes.Nota} screenOptions={{headerShown: false}}>
+    <CreateNotaStack.Navigator
+      initialRouteName={Routes.Nota}
+      screenOptions={{headerShown: false}}>
       <CreateNotaStack.Screen name={Routes.Nota} component={NotaScreen} />
       <CreateNotaStack.Screen name={Routes.ReviewNota} component={ReviewNota} />
     </CreateNotaStack.Navigator>
   );
-}
+};
 
 const CreateProductFlow = () => {
   return (
-    <CreateProductStack.Navigator initialRouteName={Routes.products} screenOptions={{headerShown: false}}>
-      <CreateProductStack.Screen name={Routes.products} component={ProductScreen} />
+    <CreateProductStack.Navigator
+      initialRouteName={Routes.products}
+      screenOptions={{headerShown: false}}>
+      <CreateProductStack.Screen
+        name={Routes.products}
+        component={ProductScreen}
+      />
     </CreateProductStack.Navigator>
-  )
-}
+  );
+};
 const HomeScreen = () => {
   return (
-    <Tab.Navigator initialRouteName={Routes.Beranda} tabBar={props => <AnimatedTabBar {...props} />}>
+    <Tab.Navigator
+      initialRouteName={Routes.Beranda}
+      tabBar={props => <AnimatedTabBar {...props} />}>
       <Tab.Screen
         name={Routes.Beranda}
         options={{
@@ -49,7 +68,7 @@ const HomeScreen = () => {
             />
           ),
         }}
-        component={BerandaScreen}
+        component={CreateHomeFlow}
       />
       <Tab.Screen
         name={Routes.Nota}
