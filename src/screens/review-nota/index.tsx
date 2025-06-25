@@ -28,7 +28,7 @@ export interface Item {
   total: number;
 }
 
-const ReviewNota = () => {
+const ReviewNota = ({navigation}: {navigation: any}) => {
   const viewShotRef = useRef(null);
 
   checkMultiple([
@@ -132,7 +132,28 @@ const ReviewNota = () => {
             footer={<SummaryItem items={data} unitLabel="Kg" />}
           />
         </ViewShot>
-        <View style={{ display: 'flex', justifyContent: 'flex-start', padding: 16}}>
+        <View style={{ display: 'flex', justifyContent: 'flex-start', flexDirection: 'row', gap: 10, padding: 16}}>
+        <TouchableOpacity
+            style={{
+              backgroundColor: Colors.background,
+              borderRadius: '100%',
+              width: 50,
+              height: 50,
+              display:'flex',
+              justifyContent: 'center'
+            }}
+            onPress={() =>
+              navigation.pop()
+            }>
+            <Icon
+              name="arrow-back"
+              size={30}
+              color={Colors.primary}
+              style={{
+                alignSelf: 'center',
+              }}
+            />
+          </TouchableOpacity>
           <TouchableOpacity
             style={{
               backgroundColor: Colors.background,
