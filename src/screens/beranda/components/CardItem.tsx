@@ -1,14 +1,20 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {Image, Text, View} from 'react-native';
 import {Colors} from '../../../constants/colors';
+import {Images} from '../../../constants/images';
 
 interface ICardItemProps {
-    title: string;
-    description: string;
-    width?:number;
-    height?: number;
+  title: string;
+  description: string;
+  width?: number;
+  height?: number;
 }
-const CardItem = ({title, description, height=100, width=100}: ICardItemProps) => {
+const CardItem = ({
+  title,
+  description,
+  height = 100,
+  width = 100,
+}: ICardItemProps) => {
   return (
     <View
       style={{
@@ -20,9 +26,20 @@ const CardItem = ({title, description, height=100, width=100}: ICardItemProps) =
         alignItems: 'center',
         padding: 12,
         borderRadius: 8,
+        overflow: 'hidden',
       }}>
       <Text style={{fontSize: 14}}>{title}</Text>
       <Text style={{fontSize: 14, fontWeight: 'bold'}}>{description}</Text>
+      <Image
+        source={Images.brokoly}
+        style={{
+          position: 'absolute',
+          width,
+          height,
+          right: -50,
+          opacity: 0.2,
+        }}
+      />
     </View>
   );
 };
