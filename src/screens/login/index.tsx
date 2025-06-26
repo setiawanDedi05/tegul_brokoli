@@ -16,6 +16,11 @@ import {Images} from '../../constants/images';
 import {NavigationProp} from '@react-navigation/native';
 import {Colors} from '../../constants/colors';
 import {Routes} from '../../navigation/routes';
+import auth from '@react-native-firebase/auth';
+import {
+  ALERT_TYPE,
+  Toast,
+} from 'react-native-alert-notification';
 
 const loginValidationSchema = yup.object().shape({
   email: yup.string().email('Format email salah'),
@@ -25,6 +30,23 @@ const loginValidationSchema = yup.object().shape({
 });
 
 const LoginScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
+  const signIn = async (value: {email: string; password: string}) => {
+    try {
+      const response = await auth().signInWithEmailAndPassword(
+        value.email,
+        value.password,
+      );
+      navigation.navigate(Routes.Home);
+      console.log('User signed in successfully:', response.user.email);
+    } catch (error: any) {
+      Toast.show({
+        type: ALERT_TYPE.DANGER,
+        title: 'Gagal',
+        textBody: error.code === 'auth/invalid-credential' ? 'Email/Password tidak sesuai' : 'Server Sedang Error',
+      });
+    }
+  };
+
   return (
     <SafeAreaView style={styles.root}>
       <View style={styles.logoContainer}>
@@ -43,9 +65,7 @@ const LoginScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
           <Formik
             validationSchema={loginValidationSchema}
             initialValues={{email: '', password: ''}}
-            onSubmit={() => {
-              navigation.navigate(Routes.Home);
-            }}>
+            onSubmit={signIn}>
             {({
               handleChange,
               handleBlur,
