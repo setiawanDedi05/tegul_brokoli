@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "131388287165",
+    "project_id": "tegel-brokoly",
+    "storage_bucket": "tegel-brokoly.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:131388287165:android:fc224fa9d22cea2da4efd4",
+        "android_client_info": {
+          "package_name": "com.tegulBrokoli"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB8CshCpN-IdSKoWNFEyBnqUefo0qf-BPs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
