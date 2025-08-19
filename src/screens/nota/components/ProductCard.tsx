@@ -1,12 +1,13 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleProp, Text, TextStyle, View} from 'react-native';
 import {Colors} from '../../../constants/colors';
 
 interface IProductCardProps {
     title: string;
     description?: string
+    descTextStyle?: StyleProp<TextStyle>
 }
-const ProductCard = ({title, description}: IProductCardProps) => {
+const ProductCard = ({title, description, descTextStyle}: IProductCardProps) => {
   return (
     <View
       style={{
@@ -27,7 +28,7 @@ const ProductCard = ({title, description}: IProductCardProps) => {
         shadowColor: Colors.primary,
       }}>
       <Text style={{fontSize: 12}}>{title}</Text>
-      {description && <Text style={{fontSize: 14, fontWeight: 'bold'}}>{description}</Text>}
+      {description && <Text style={descTextStyle ?? {fontSize: 14, fontWeight: 'bold'}}>{description}</Text>}
     </View>
   );
 };

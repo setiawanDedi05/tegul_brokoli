@@ -2,12 +2,13 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {Colors} from '../../../constants/colors';
 import {TouchableOpacity} from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
 import {NavigationProp} from '@react-navigation/native';
 import {Routes} from '../../../navigation/routes';
 import Lottie from 'lottie-react-native';
+import { useAuthStore } from '../../../store/auth.store';
 
 const Greetings = ({navigation}: {navigation: NavigationProp<any>}) => {
+  const {user} = useAuthStore()
   return (
     <View
       style={{
@@ -20,7 +21,7 @@ const Greetings = ({navigation}: {navigation: NavigationProp<any>}) => {
       <View style={{flexDirection: 'row', alignItems: 'baseline', gap: 5}}>
         <Text style={{fontSize: 20, color: Colors.primary}}>Hallo,</Text>
         <Text style={{fontSize: 20, fontWeight: 'bold', color: Colors.primary}}>
-          Dedi
+          {user?.email?.split('@')[0]}
         </Text>
       </View>
       <TouchableOpacity

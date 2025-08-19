@@ -1,7 +1,6 @@
-import React from 'react';
 import Lottie from 'lottie-react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import AnimatedTabBar from './components/AnimatedTabBar';
 import BerandaScreen from '../beranda';
 import {Routes} from '../../navigation/routes';
@@ -16,6 +15,7 @@ const Tab = createBottomTabNavigator();
 const CreateHomeStack = createNativeStackNavigator();
 const CreateNotaStack = createNativeStackNavigator();
 const CreateProductStack = createNativeStackNavigator();
+
 const CreateHomeFlow = () => {
   return (
     <CreateHomeStack.Navigator

@@ -14,12 +14,12 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Colors} from '../../constants/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ProductCard from './components/ProductCard';
-import BottomDrawer, {
+import {
   BottomDrawerMethods,
 } from 'react-native-animated-bottom-drawer';
-import {THEME} from '../../constants/theme';
 import {NavigationProp} from '@react-navigation/native';
 import {Routes} from '../../navigation/routes';
+import ProductDrawer from './components/ProductDrawer';
 
 const createNotaValidationSchema = yup.object().shape({
   type: yup.string(),
@@ -239,98 +239,7 @@ const NotaScreen = ({navigation}: {navigation: NavigationProp<any>}) => {
           )}
         </Formik>
       </ScrollView>
-      <BottomDrawer ref={bottomDrawerRef}>
-        <ScrollView>
-          <Text style={{padding: 12, fontWeight: 700}}>Pilih Produk</Text>
-          <ScrollView horizontal>
-            <View
-              style={{
-                columnGap: 10,
-                paddingVertical: 10,
-                flexDirection: 'row',
-              }}>
-              <View></View>
-              {productList.map((item, index) => (
-                <ProductCard
-                  key={index}
-                  title={item.name}
-                  // description={item.total}
-                />
-              ))}
-            </View>
-          </ScrollView>
-          <View style={{gap: 10, padding: 12}}>
-            <Text style={{fontWeight: 700}}>Jumlah Satuan KG</Text>
-            <View
-              style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 10,
-              }}>
-              <Pressable>
-                <View
-                  style={{
-                    width: 50,
-                    height: 50,
-                    borderWidth: 1,
-                    borderRadius: 50,
-                    padding: 12,
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    display: 'flex',
-                    backgroundColor: Colors.background,
-                    ...THEME.shadow,
-                  }}>
-                  <Icon name="remove" size={24} color={Colors.primary} />
-                </View>
-              </Pressable>
-              <TextInput
-                placeholder="0"
-                keyboardType="numeric"
-                // onChangeText={handleChange('name')}
-                // onBlur={handleBlur('name')}
-                // value={values.name}
-                style={{
-                  borderWidth: 1,
-                  fontSize: 24,
-                  textAlignVertical: 'center',
-                  textAlign: 'center',
-                  borderRadius: 8,
-                  padding: 12,
-                  width: 50,
-                  height: 100,
-                }}
-              />
-              {/* {errors.name && touched.name && (
-            <Text style={styles.errorText}>{errors.name}</Text>
-            )} */}
-              <Pressable>
-                <View
-                  style={{
-                    width: 50,
-                    height: 50,
-                    borderWidth: 1,
-                    borderRadius: 50,
-                    padding: 12,
-                    backgroundColor: Colors.background,
-                    ...THEME.shadow,
-                  }}>
-                  <Icon name="add" size={24} color={Colors.primary} />
-                </View>
-              </Pressable>
-            </View>
-          </View>
-          <TouchableOpacity
-            // style={}
-            // onPress={() => handleSubmit()}
-            style={styles.button}>
-            <Text style={{color: Colors.background, fontWeight: 700}}>
-              Tambah
-            </Text>
-          </TouchableOpacity>
-        </ScrollView>
-      </BottomDrawer>
+      <ProductDrawer ref={bottomDrawerRef} />
     </LinearGradient>
   );
 };
